@@ -1,0 +1,77 @@
+A. ¿Qué pasaría si se pierde la referencia de un objeto de tipo Persona?
+RTA/
+Si se pierde la referencia de un objeto Persona y no hay ninguna otra referencia 
+apuntando a él, el objeto se convierte en un candidato para ser eliminado por el
+garbage collector. En ese momento, el método finalize del objeto se ejecutará, 
+mostrando el mensaje "Matando a: [nombre]".
+
+B. ¿Cómo podríamos conocer el nombre del dueno de la variable auto de la línea
+    11 del método main?
+RTA/    
+Podríamos llamar al método getDueno del objeto auto para obtener el objeto Persona 
+asociado como dueño y luego llamar a su método getNombre.
+
+System.out.println(auto.getDueno().getNombre());
+
+
+C. ¿De qué manera podemos agregar un dueno al Vehículo de la línea 13 del método
+    main?
+RAT/
+Podemos usar el método setDueno de la clase Vehiculo para asignarle un dueño.
+
+auto2.setDueno(personas[3]); 
+
+
+D. Usando la variable auto2 de la línea 13 del método main, obtenga el valor del 
+   atributo velocidadMaxima del motor del vehículo. Adjunte su propuesta.
+RAT/
+Podemos acceder al motor de auto2 usando el método getMotor y luego llamar al
+método getVelocidadMaxima de ese motor.
+
+int velocidadMaxima = auto2.getMotor().getVelocidadMaxima();
+System.out.println("Velocidad máxima: " + velocidadMaxima);
+
+
+E. Suponga que, al momento de perder la referencia al objeto, se borra del sistema,
+   es decir, el garbage collector es muy eficiente. ¿Qué imprimiría al ejecutar el
+   método main por consola?
+RTA/
+El método finalize imprime un mensaje antes de que el objeto sea eliminado.
+El programa imprimiría:
+
+Matando a: Santiago
+Soy Santiago
+
+Esto sucede porque el método finalize se llama para personas[3] en la línea 16. 
+Sin embargo, aunque la referencia se pierde, en ese momento aún se imprime la
+salida de System.out.println(personas[3]) ya que el objeto no se ha eliminado
+completamente en ese instante.
+
+
+F. ¿Qué ocurre al momento de ejecutar la siguiente línea después de la línea 16
+   System.out.println(personas[1])? Explique.
+RTA/
+personas[1] ahora contiene la referencia de personas[2], porque en la línea 14 se
+asignó personas[1] = personas[2]. Al ejecutar esta línea, se imprimirá la 
+representación del objeto referenciado, que en este caso es el resultado del 
+método toString de Persona, mostrando el nombre del segundo elemento.
+
+
+G. ¿Qué modificación al código debo hacer para que al momento de ejecutar 
+   System.out.println(auto2), me aparezca la placa del vehículo y el dueno
+   del vehículo?
+RTA/
+Se debe sobrescribir el método toString en la clase Vehiculo.
+
+public String toString() {
+    return "Placa: " + placa + ", Dueño: " + (dueno != null ? dueno.getNombre() : "Sin dueño");
+}
+
+
+H. Usando la variable auto de la línea 11 del método main, y usando el atributo dueno,
+   asigne de mejorAmigo al tercer elemento del listado personas. Adjunte su propuesta.
+RTA/
+Se puede acceder al dueño de auto y usar el método setMejorAmigo para asignar al tercer
+elemento de personas como su mejor amigo.
+
+auto.getDueno().setMejorAmigo(personas[2]);
